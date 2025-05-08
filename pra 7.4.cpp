@@ -2,23 +2,17 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <sstream>
 
 using namespace std;
 
 class Student {
-private:
+public:
     string name;
     int marks;
     string grade;
 
-public:
-    Student(const string& n, int m, const string& g)
-        : name(n), marks(m), grade(g) {}
-
-    string getName() const { return name; }
-    int getMarks() const { return marks; }
-    string getGrade() const { return grade; }
+    // Constructor
+    Student(string n, int m, string g) : name(n), marks(m), grade(g) {}
 };
 
 int main() {
@@ -26,32 +20,23 @@ int main() {
     vector<Student> students;
 
     if (!file) {
-        cerr << "Error: Unable to open file." << endl;
+        cout << "Error: Unable to open file." << endl;
         return 1;
     }
 
-    string line;
-
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string name, grade;
-        int marks;
-
-        ss >> name >> marks >> grade;
-
-        if (ss.fail()) {
-            cerr << "Error reading line: " << line << endl;
-            continue;
-        }
-
+    string name, grade;
+    int marks;
+    
+    while (file >> name >> marks >> grade) {
         students.push_back(Student(name, marks, grade));
     }
 
     file.close();
 
+    // Display results
     cout << "Student Name   Marks   Grade" << endl;
     for (const auto& student : students) {
-        cout << student.getName() << "   " << student.getMarks() << "   " << student.getGrade() << endl;
+        cout << student.name << "   " << student.marks << "   " << student.grade << endl;
     }
 
     return 0;
