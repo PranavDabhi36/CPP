@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <string>
-#include <cctype>
 using namespace std;
 
 int main() {
@@ -11,7 +9,6 @@ int main() {
     cin >> fileName;
 
     ifstream file(fileName);
-
     if (!file) {
         cout << "Error: Unable to open file " << fileName << endl;
         return 1;
@@ -24,14 +21,20 @@ int main() {
 
     while (getline(file, line)) {
         lineCount++;
-
-        stringstream ss(line);
-        string word;
-        while (ss >> word) {
-            wordCount++;
-        }
-
         charCount += line.length();
+
+        // Count words by detecting transitions between spaces and non-spaces
+        bool inWord = false;
+        for (char ch : line) {
+            if (ch != ' ' && ch != '\t') {
+                if (!inWord) {
+                    wordCount++;
+                    inWord = true;
+                }
+            } else {
+                inWord = false;
+            }
+        }
     }
 
     cout << "Total Lines: " << lineCount << endl;
