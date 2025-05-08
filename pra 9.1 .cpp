@@ -1,30 +1,34 @@
 #include <iostream>
-#include <limits>
 
 using namespace std;
 
 int main() {
     double loanAmount, annualIncome;
 
-    cout << "Enter loan amount: ";
-    while (!(cin >> loanAmount) || loanAmount < 0) {
-        cout << "Invalid input. Please enter a positive number for loan amount: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    // Ask for user input
+    cout << "Enter the loan amount: ";
+    while (!(cin >> loanAmount)) {  // Input validation for loanAmount
+        cout << "Invalid input. Please enter a valid number for the loan amount: ";
+        cin.clear();  // Clear the error flag
+        cin.ignore(10000, '\n');  // Ignore invalid input
     }
 
-    cout << "Enter annual income: ";
-    while (!(cin >> annualIncome) || annualIncome <= 0) {
-        if (annualIncome == 0)
-            cout << "Annual income cannot be zero. Please enter a valid number: ";
-        else
-            cout << "Invalid input. Please enter a positive number for income: ";
+    cout << "Enter your annual income: ";
+    while (!(cin >> annualIncome) || annualIncome == 0) {  // Input validation for annualIncome (check for zero income)
+        if (annualIncome == 0) {
+            cout << "Annual income cannot be zero. Please enter a non-zero income: ";
+        } else {
+            cout << "Invalid input. Please enter a valid number for annual income: ";
+        }
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(10000, '\n');
     }
 
+    // Calculate loan-to-income ratio
     double ratio = loanAmount / annualIncome;
-    cout << "Loan-to-Income Ratio: " << ratio << endl;
+
+    // Display the result
+    cout << "Your loan-to-income ratio is: " << ratio << endl;
 
     return 0;
 }
