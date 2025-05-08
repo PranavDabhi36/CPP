@@ -16,7 +16,7 @@ int main() {
     // Use reverse with pointers
     reverse(arr, arr + n);
 
-    cout << "Reversed sequence:\n";
+    cout << "Reversed sequence :\n";
     for (int i = 0; i < n; ++i) {
         cout << arr[i] << " ";
     }
